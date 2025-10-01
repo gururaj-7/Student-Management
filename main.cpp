@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 
 // Structure to store student details
@@ -13,11 +14,12 @@ struct Student {
 
 class StudentManager {
 private:
-    Student students[100]; 
-    int count;             
+    // Student students[100]; 
+    // int count;
+    
+    vector<Student> students; 
 
 public:
-    StudentManager(); 
     void addStudent();
     void showStudents();
     void searchStudent();  
@@ -25,40 +27,37 @@ public:
     void deleteStudent(); 
 };
 
-
-StudentManager::StudentManager() {
-    count = 0; // Initially no students
-}
-
 // This function adds a new student
 void StudentManager::addStudent() {
+    Student s;
+
     cout << "Enter Student ID: ";
-    cin >> students[count].id;
+    cin >> s.id;
 
     cin.ignore();
     
     cout << "Enter Student Name: ";
-    getline(cin, students[count].name);
+    getline(cin, s.name);
 
     cout << "Enter Student Age: ";
-    cin >> students[count].age;
+    cin >> s.age;
 
     cout << "Enter Student Percentage: ";
-    cin >> students[count].percentage;
+    cin >> s.percentage;
 
-    count++;
+    students.push_back(s);
     cout << "Student added successfully!\n";
 }
 
 // This function displays all students
 void StudentManager::showStudents() {
-    if (count == 0) {
+    if (students.empty()) {
         cout << "No students added yet.\n";
         return;
     }
 
     cout << "\n--- Student List ---\n";
-    for (int i = 0; i < count; i++) {
+    for (int i = 0; i < students.size(); i++) {
         cout << "ID: " << students[i].id << "\n";
         cout << "Name: " << students[i].name << "\n";
         cout << "Age: " << students[i].age << "\n";
@@ -75,7 +74,7 @@ void StudentManager::searchStudent()
     cout << "Enter Student ID to search: ";
     cin >> id;
 
-    for (int i = 0; i < count; i++)
+    for (int i = 0; i < students.size(); i++)
     {
         if(students[i].id == id)
         {
@@ -100,7 +99,7 @@ void StudentManager::updateStudent()
     cin >> id;
     cin.ignore();
 
-    for (int i = 0; i < count; i++)
+    for (int i = 0; i < students.size(); i++)
     {
         if(students[i].id == id)
         {
@@ -127,15 +126,11 @@ void StudentManager::deleteStudent()
     cout << "Enter Student ID to delete: ";
     cin >> id;
 
-    for (int i = 0; i < count; i++)
+    for (int i = 0; i < students.size(); i++)
     {
         if(students[i].id == id)
         {
-            for (int j = i; j < count - 1; j++)
-            {
-                students[j] = students[j + 1];
-            }
-            count--;
+            students.erase(students.begin() + i);
             cout << "Student deleted successfully!\n";
             return;
         }
