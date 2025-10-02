@@ -58,10 +58,11 @@ void StudentManager::showStudents() {
 
     cout << "\n--- Student List ---\n";
     for (int i = 0; i < students.size(); i++) {
-        cout << "ID: " << students[i].id << "\n";
-        cout << "Name: " << students[i].name << "\n";
-        cout << "Age: " << students[i].age << "\n";
-        cout << "Percentage: " << students[i].percentage << "%\n";
+        Student *s = &students[i];
+        cout << "ID: " << s->id << "\n";
+        cout << "Name: " << s->name << "\n";
+        cout << "Age: " << s->age << "\n";
+        cout << "Percentage: " << s->percentage << "%\n";
         cout << "\n-----------------------\n";
     }
 }
@@ -76,13 +77,14 @@ void StudentManager::searchStudent()
 
     for (int i = 0; i < students.size(); i++)
     {
-        if(students[i].id == id)
+        Student *s = &students[i];
+        if(s->id == id)
         {
             cout << "Student found:\n";
-            cout << "ID: " << students[i].id << "\n";
-            cout << "Name: " << students[i].name << "\n";
-            cout << "Age: " << students[i].age << "\n";
-            cout << "Percentage: " << students[i].percentage << "%\n";
+            cout << "ID: " << s->id << "\n";
+            cout << "Name: " << s->name << "\n";
+            cout << "Age: " << s->age << "\n";
+            cout << "Percentage: " << s->percentage << "%\n";
             cout << "\n-----------------------\n";
             return;
         }
@@ -101,16 +103,17 @@ void StudentManager::updateStudent()
 
     for (int i = 0; i < students.size(); i++)
     {
-        if(students[i].id == id)
+        Student *s = &students[i]; 
+        if(s->id == id)
         {
             cout << "Enter new name: ";
-            getline(cin, students[i].name);
+            getline(cin, s->name);
 
             cout << "Enter new age: ";
-            cin >> students[i].age;
+            cin >> s->age;
 
             cout << "Enter new percentage: ";
-            cin >> students[i].percentage;
+            cin >> s->percentage;
 
             cout << "Student details updated successfully!\n";
             return;
@@ -128,7 +131,8 @@ void StudentManager::deleteStudent()
 
     for (int i = 0; i < students.size(); i++)
     {
-        if(students[i].id == id)
+        Student *s = &students[i]; 
+        if(s->id == id)
         {
             students.erase(students.begin() + i);
             cout << "Student deleted successfully!\n";
